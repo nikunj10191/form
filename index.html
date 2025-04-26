@@ -6,266 +6,526 @@
     <title>Thakkar Dal Pakwan</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            margin: 0;
-        }
+       /* === Base Styles (Keep Existing) === */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Animated Gradient */
+    background: linear-gradient(135deg, #6dd5ed, #2193b0, #f5f7fa, #c3cfe2);
+    background-size: 400% 400%; /* Larger size for smooth animation */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+    animation: gradientShift 15s ease infinite; /* Add animation */
+    overflow-x: hidden; /* Prevent horizontal scroll on small screens during animation */
+}
 
-        .form-container {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
-            transition: all 0.3s ease;
-        }
+.form-container {
+    background: white;
+    padding: 2.5rem 3rem; /* Increased padding slightly */
+    border-radius: 16px; /* Slightly more rounded */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    width: 100%;
+    max-width: 480px; /* Slightly wider */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+    opacity: 0; /* Start hidden for animation */
+    transform: translateY(20px); /* Start slightly lower */
+    animation: formEntrance 0.8s 0.3s forwards cubic-bezier(0.25, 0.8, 0.25, 1); /* Add entrance animation */
+}
 
-        .form-container:hover {
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
+.form-container:hover {
+    box-shadow: 0 20px 50px rgba(33, 147, 176, 0.25); /* Colorful shadow on hover */
+    transform: translateY(-5px) scale(1.01); /* Lift and slightly scale */
+}
 
-        h2 {
-            margin-bottom: 1.5rem;
-            color: #2c3e50;
-            text-align: center;
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 10px;
-        }
+h2 {
+    margin-bottom: 2rem; /* More space */
+    color: #2c3e50;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 15px; /* More padding */
+    font-size: 1.8rem; /* Slightly larger */
+    letter-spacing: 0.5px;
+}
 
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: #4CAF50;
-            border-radius: 3px;
-        }
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; /* Start at 0 width */
+    height: 4px; /* Thicker line */
+    background: linear-gradient(90deg, #4CAF50, #81C784); /* Gradient underline */
+    border-radius: 3px;
+    animation: expandLine 1s 0.8s forwards ease-out; /* Animate underline */
+}
 
-        .form-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
+.form-group {
+    margin-bottom: 1.8rem; /* More space */
+    position: relative;
+}
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #34495e;
-            font-weight: 500;
-        }
+/* --- Floating Label Styles --- */
+label {
+    position: absolute; /* Needed for floating */
+    left: 45px; /* Adjusted for icon */
+    top: 14px;  /* Position inside the input area initially */
+    color: #5a6e80; /* Slightly muted color */
+    font-weight: 500;
+    font-size: 1rem;
+    pointer-events: none; /* Allow clicks to pass through to input */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth transition */
+    background-color: white; /* Cover input border when floated */
+    padding: 0 5px; /* Padding to clear border */
+    /* Removed display: block and margin-bottom */
+}
 
-        input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            box-sizing: border-box;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
+input {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 45px; /* Adjusted padding for icon and label */
+    border: 1px solid #ccc; /* Slightly lighter border */
+    border-radius: 8px; /* More rounded */
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    background-color: #f8f9fa; /* Subtle background for input */
+}
 
-        input:focus {
-            border-color: #4CAF50;
-            box-shadow: 0 0 0 0.25rem rgba(76, 175, 80, 0.25);
-            outline: none;
-        }
+/* Input focus styles */
+input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Softer focus glow */
+    outline: none;
+    background-color: #fff; /* White background on focus */
+}
 
-        .error-message {
-            color: #e74c3c;
-            font-size: 0.85rem;
-            margin-top: 0.25rem;
-            display: none;
-        }
+/* --- Floating Label Animation Trigger --- */
+input:focus + label,
+input:not(:placeholder-shown) + label { /* Target label when input has focus OR has content */
+    top: -10px; /* Move label above the input */
+    left: 40px; /* Adjust position slightly */
+    font-size: 0.8rem; /* Smaller font size */
+    color: #4CAF50; /* Highlight color */
+    font-weight: 600;
+}
 
-        input.error {
-            border-color: #e74c3c;
-        }
+/* --- Input Icons --- */
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #90a4ae; /* Icon color */
+    transition: color 0.3s ease;
+}
 
-        input.valid {
-            border-color: #2ecc71;
-        }
+input:focus ~ .input-icon, /* Using general sibling selector */
+input:not(:placeholder-shown) ~ .input-icon {
+    color: #4CAF50; /* Highlight icon color */
+}
+/* Adjust icon position if needed for specific icons */
+.fa-user { /* Example adjustment */
+    font-size: 0.95em;
+}
+.fa-phone {
+     font-size: 0.95em;
+}
 
-        .submit-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            position: relative;
-        }
+/* --- Validation Styles --- */
+.error-message {
+    color: #e74c3c;
+    font-size: 0.8rem; /* Smaller error message */
+    margin-top: 0.4rem;
+    display: none;
+    position: absolute; /* Position relative to form group */
+    bottom: -18px; /* Position below the input */
+    left: 0;
+    animation: fadeIn 0.3s ease; /* Fade in error */
+}
 
-        .submit-btn:hover {
-            background-color: #3e8e41;
-            transform: translateY(-2px);
-        }
+input.error {
+    border-color: #e74c3c;
+    animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; /* Shake animation on error */
+}
+input.error:focus {
+     box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2); /* Red focus glow */
+}
+input.error + label { /* Style label on error */
+    color: #e74c3c;
+}
+input.error ~ .input-icon { /* Style icon on error */
+    color: #e74c3c;
+}
 
-        .submit-btn:active {
-            transform: translateY(0);
-        }
+input.valid {
+    border-color: #2ecc71;
+}
+input.valid:focus {
+     box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2); /* Green focus glow */
+}
+input.valid + label { /* Keep label green when valid and focused/filled */
+     color: #2ecc71;
+}
+input.valid ~ .input-icon { /* Style icon on valid */
+    color: #2ecc71;
+}
 
-        .hidden {
-            display: none;
-        }
+/* --- Validation Icons (Checkmark/Cross) --- */
+.validation-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%) scale(0); /* Start hidden and scaled down */
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.validation-icon::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
 
-        #success-message {
-            text-align: center;
-            color: #4CAF50;
-            margin-top: 1.5rem;
-            font-weight: bold;
-            font-size: 1.1rem;
-            animation: fadeIn 0.5s;
-        }
+input.valid ~ .validation-icon {
+    color: #2ecc71;
+    transform: translateY(-50%) scale(1); /* Scale in */
+}
+input.valid ~ .validation-icon::before {
+    content: "\f058"; /* Font Awesome check-circle */
+}
 
-        /* Loading spinner styles */
-        .submit-btn .spinner {
-            display: none;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
+input.error ~ .validation-icon {
+    color: #e74c3c;
+    transform: translateY(-50%) scale(1); /* Scale in */
+}
+input.error ~ .validation-icon::before {
+     content: "\f06a"; /* Font Awesome exclamation-circle */
+}
 
-        .submit-btn.loading {
-            pointer-events: none;
-            opacity: 0.8;
-        }
+/* === Submit Button Styles === */
+.submit-btn {
+    width: 100%;
+    padding: 0.85rem; /* Slightly more padding */
+    background: linear-gradient(90deg, #4CAF50, #3e8e41); /* Gradient background */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.05rem; /* Slightly larger text */
+    font-weight: 600;
+    letter-spacing: 0.8px; /* More spacing */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden; /* For potential ripple effects if added later */
+    display: flex; /* Align text and icon */
+    justify-content: center;
+    align-items: center;
+}
+.submit-btn .btn-text {
+    transition: opacity 0.3s ease;
+}
+.submit-btn .btn-icon {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
 
-        .submit-btn.loading .spinner {
-            display: block;
-        }
+.submit-btn:hover {
+    background: linear-gradient(90deg, #3e8e41, #4CAF50); /* Reverse gradient */
+    transform: translateY(-3px) scale(1.02); /* More lift */
+    box-shadow: 0 8px 15px rgba(76, 175, 80, 0.3); /* Softer shadow */
+    /* animation: pulse 1.5s infinite cubic-bezier(0.66, 0, 0, 1); */ /* Optional pulse */
+}
+.submit-btn:hover .btn-icon {
+     transform: translateX(3px); /* Move icon slightly */
+}
 
-        @keyframes spin {
-            to { transform: translateY(-50%) rotate(360deg); }
-        }
+.submit-btn:active {
+    transform: translateY(0) scale(1); /* Press down effect */
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2); /* Smaller shadow */
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+.hidden {
+    display: none;
+}
 
-        /* Responsive adjustments */
-        @media (max-width: 576px) {
-            .form-container {
-                padding: 1.5rem;
-            margin: 0 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            max-width: 100%;
-            width: auto;
-            min-width: 0;
-            transition: none;
-            box-shadow: none;
-            border: 1px solid #eee;
-            background-color: #fff;
-            padding: 1.5rem 1rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-            
-            h2 {
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
-            
-            .form-group {
-                margin-bottom: 1rem;
-            }
-            
-            input {
-                padding: 0.65rem 0.85rem;
-                font-size: 0.95rem;
-            }
-            
-            .submit-btn {
-                padding: 0.65rem;
-                font-size: 0.95rem;
-            }
-        }
+/* --- Success Message Styles --- */
+#success-message {
+    text-align: center;
+    color: #388E3C; /* Darker green */
+    margin-top: 1.5rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    display: none; /* Use display none/block with JS */
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; /* Bounce animation */
+}
+#success-message p {
+    margin: 0.5rem 0 0 0; /* Adjust spacing */
+}
+.success-icon {
+    font-size: 2.5rem; /* Larger success icon */
+    color: #4CAF50;
+    display: block;
+    margin-bottom: 0.5rem;
+}
 
-        @media (max-width: 400px) {
-            body {
-                padding: 10px;
-                background: #fff;
-            }
-            
-            .form-container {
-                padding: 1rem;
-                box-shadow: none;
-                border: none;
-                background: transparent;
-            }
-            
-            h2 {
-                font-size: 1.4rem;
-            }
-        }
+
+/* Loading spinner styles */
+.submit-btn .spinner {
+    display: none;
+    position: absolute;
+    /* Removed absolute positioning to let flex handle it */
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-left: 10px; /* Add space between spinner and text if needed */
+}
+
+.submit-btn.loading {
+    pointer-events: none; /* Keep */
+    opacity: 0.8; /* Keep */
+    background: linear-gradient(90deg, #5a7d5c, #516a52); /* Dimmed background */
+}
+.submit-btn.loading .btn-text {
+    opacity: 0; /* Hide text */
+}
+.submit-btn.loading .btn-icon {
+    opacity: 0; /* Hide icon */
+}
+.submit-btn.loading .spinner {
+    display: block; /* Show spinner */
+    position: static; /* Let flexbox position it */
+    transform: none; /* Reset transform */
+}
+
+/* === Animations === */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes formEntrance {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes expandLine {
+    to {
+        width: 80px; /* Final width of underline */
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+  40%, 60% { transform: translate3d(3px, 0, 0); }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); } /* Simpler spin */
+}
+
+
+/* === Responsive Adjustments (Keep Existing and Enhance) === */
+@media (max-width: 576px) {
+    body {
+        padding: 15px; /* Consistent padding */
+         /* Keep gradient on mobile unless performance is an issue */
+    }
+    .form-container {
+        padding: 2rem 1.5rem; /* Adjust padding */
+        margin: 0 10px; /* Consistent margin */
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Keep some shadow */
+        border-radius: 12px; /* Consistent radius */
+        max-width: none; /* Allow full width minus margins */
+        width: auto;
+        animation: none; /* Disable entrance animation on mobile if desired */
+        opacity: 1;
+        transform: none;
+    }
+    .form-container:hover {
+        transform: none; /* Disable hover transform on mobile */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 12px;
+    }
+    h2::after {
+        height: 3px;
+        animation: none; /* Disable underline animation */
+        width: 60px; /* Set static width */
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    label {
+        left: 40px; /* Adjust label position */
+        top: 12px;
+        font-size: 0.95rem;
+    }
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+        top: -9px;
+        left: 35px;
+        font-size: 0.75rem;
+    }
+
+    input {
+        padding: 0.75rem 0.85rem 0.75rem 40px; /* Adjust input padding */
+        font-size: 0.95rem;
+    }
+
+    .input-icon {
+        left: 12px; /* Adjust icon position */
+        font-size: 0.9rem;
+    }
+
+     .validation-icon {
+        right: 10px;
+        font-size: 1rem;
+    }
+
+    .submit-btn {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+    .submit-btn:hover {
+         transform: none; /* Disable hover transform */
+         /* animation: none; Disable pulse */
+         box-shadow: 0 6px 12px rgba(76, 175, 80, 0.25);
+    }
+     .submit-btn:active {
+         transform: none;
+         box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
+     }
+
+    .error-message {
+        font-size: 0.75rem;
+        bottom: -16px;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 10px;
+        background: #f8f9fa; /* Simpler background for very small screens */
+         animation: none; /* Disable gradient animation */
+    }
+
+    .form-container {
+        padding: 1.5rem 1rem;
+        box-shadow: none;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        margin: 0;
+        background-color: #fff;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
+
+     label {
+        left: 38px;
+        top: 11px;
+    }
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+        top: -8px;
+        left: 33px;
+    }
+    input {
+        padding: 0.7rem 0.8rem 0.7rem 38px;
+    }
+     .input-icon {
+        left: 10px;
+    }
+}
     </style>
 </head>
 <body>
     <div class="form-container">
-        <h2>Thakkar Dal Pakwan</h2>
-        <form id="contact-form">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+        <div class="form-container">
+            <h2><i class="fas fa-utensils" style="margin-right: 8px; color: #e67e22;"></i>Thakkar Dal Pakwan</h2>
+            <form id="contact-form">
+                <div class="form-group">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="name" name="name" required placeholder=" "> 
+                    <label for="name">Name:</label>
+                    <span class="validation-icon"></span>
+                </div>
+                <div class="form-group">
+                     <i class="fas fa-phone input-icon"></i>
+                    <input type="tel" id="number" name="number" required placeholder=" "> 
+                    <label for="number">Phone Number:</label>
+                    <div class="error-message" id="phone-error">Please enter a valid 10-digit phone number</div>
+                    <span class="validation-icon"></span>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span class="btn-text">Submit</span>
+                    <i class="fas fa-paper-plane btn-icon"></i> 
+                    <span class="spinner"></span>
+                </button>
+            </form>
+            <div id="success-message" class="hidden">
+                 <i class="fas fa-check-circle success-icon"></i> 
+                <p>Thank you! We'll contact you soon.</p>
             </div>
-            <div class="form-group">
-                <label for="number">Phone Number:</label>
-                <input type="tel" id="number" name="number" required>
-                <div class="error-message" id="phone-error">Please enter a valid 10-digit phone number</div>
-            </div>
-            <button type="submit" class="submit-btn">
-                Submit
-                <span class="spinner"></span>
-            </button>
-        </form>
-        <div id="success-message" class="hidden">
-            <p>Thank you! We'll contact you soon.</p>
         </div>
-    </div>
-
+    
+        <!-- Bootstrap JS Bundle with Popper -->
+      
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyhdRGRgBScE2xedDolYDVXbIg52RsYvjv_C-bRGIvWEjbrAdNeuEF2ekMWrGpC0JyS/exec';
         const form = document.forms['contact-form'];
         const submitBtn = document.querySelector('.submit-btn');
         const phoneInput = document.getElementById('number');
+        const nameInput = document.getElementById('name'); // << Added
         const phoneError = document.getElementById('phone-error');
-        
+    
         // Phone number validation function
         function validatePhoneNumber(phone) {
-            // Remove all non-digit characters
             const cleaned = phone.replace(/\D/g, '');
-            // Check if it's exactly 10 digits (for Indian numbers)
             return cleaned.length === 10;
         }
-        
-        // Validate phone number on input
+    
         phoneInput.addEventListener('input', function() {
             if (phoneInput.value.trim() === '') {
                 phoneInput.classList.remove('error', 'valid');
@@ -284,21 +544,26 @@
                 phoneError.style.display = 'block';
             }
         });
-        
+    
         form.addEventListener('submit', e => {
             e.preventDefault();
-            
-            // Validate phone number before submission
+    
             if (!validatePhoneNumber(phoneInput.value)) {
                 phoneInput.classList.add('error');
                 phoneError.style.display = 'block';
                 phoneInput.focus();
                 return;
             }
-            
-            // Show loading state
+    
+            // ====== Add "CI. " prefix if not already there ======
+            let currentName = nameInput.value.trim();
+            if (!currentName.startsWith("CI.")) {
+                nameInput.value = "CI. " + currentName;
+            }
+            // ====================================================
+    
             submitBtn.classList.add('loading');
-            
+    
             fetch(scriptURL, { 
                 method: 'POST', 
                 body: new FormData(form)
@@ -313,10 +578,10 @@
             })
             .catch(error => console.error('Error!', error.message))
             .finally(() => {
-                // Hide loading state regardless of success or failure
                 submitBtn.classList.remove('loading');
             });
         });
     </script>
+    
 </body>
 </html>
