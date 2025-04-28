@@ -586,7 +586,7 @@ input.error ~ .validation-icon::before {
 
         
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyhdRGRgBScE2xedDolYDVXbIg52RsYvjv_C-bRGIvWEjbrAdNeuEF2ekMWrGpC0JyS/exec';
+ const scriptURL = 'https://script.google.com/macros/s/AKfycbyhdRGRgBScE2xedDolYDVXbIg52RsYvjv_C-bRGIvWEjbrAdNeuEF2ekMWrGpC0JyS/exec';
 const form = document.forms['contact-form'];
 const submitBtn = document.querySelector('.submit-btn');
 const phoneInput = document.getElementById('number');
@@ -658,7 +658,7 @@ form.addEventListener('submit', e => {
 });
 
 function saveContactToDevice() {
-    // Create a vCard string
+    // Create a vCard string with updated name
     const vCardData = `BEGIN:VCARD
 VERSION:3.0
 FN:Nikunj Ratani Thakkar Dal Pakwan
@@ -674,7 +674,7 @@ END:VCARD`;
     // Create a temporary anchor element to trigger the download
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'Nikunj_Ratani.vcf'; // The filename for the downloaded contact
+    a.download = 'Nikunj_Ratani_Thakkar_Dal_Pakwan.vcf'; // Updated filename
     document.body.appendChild(a);
     
     // Trigger the download
